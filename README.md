@@ -15,19 +15,19 @@ The data is prepared using the R script (coding_challenge.R). It utilises data f
 
 
 **The following versions are used in this project:**
-Platform: x86_64-w64-mingw32,
-Architecture: x86_64,
-Operating System: mingw32,
-CRT: ucrt,
-System: x86_64, mingw32,
-Major Version: 4,
-Minor Version: 2.1,
-Year: 2022,
-Month: 06,
-Day: 23,
-SVN Revision: 82513,
-Language: R,
-Version String: R version 4.2.1 (2022-06-23 ucrt)
+1. Platform: x86_64-w64-mingw32
+2. Architecture: x86_64
+3. Operating System: mingw32
+4. CRT: ucrt
+5. System: x86_64, mingw32
+6. Major Version: 4
+7. Minor Version: 2.1
+8. Year: 2022
+9. Month: 06
+10. Day: 23
+11. SVN Revision: 82513
+12. Language: R
+13. Version String: R version 4.2.1 (2022-06-23 ucrt)
 
 
 
