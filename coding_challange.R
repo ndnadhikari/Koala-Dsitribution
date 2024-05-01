@@ -64,7 +64,7 @@ df$date <- as.Date(df$date)  ## Tidying up date into short format
 
 ## Loading shape files for map ========================
 df_states <- read_sf('Australia/STE_2021_AUST_GDA2020.shp')
-names(states)
+names(df_states)
 
 df_states  <- df_states %>% 
   rename(states = STE_NAME21) %>% 
@@ -128,23 +128,23 @@ p1 <- ggplot(df_with_state, aes(x = states)) +
 
 ## Showing the distribution of temperature by states
 # Plot
-p2 <- ggplot(df_with_state, aes(x = states, y = temp)) +
+p2 <- ggplot(df_with_state, aes(x = states, y = temp/10)) +
   geom_boxplot() +
-  labs(x = "States", y = "Temperature", title = "Distribution of Temperature by States") +
+  labs(x = "States", y = "Temperature (C)", title = "Distribution of Temperature by States") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 # ggsave("plots/distribution of temp by states.png", plot = p2, width = 10, height = 6, units = "in", dpi = 300)
 
 # Plot
-p3 <- ggplot(df_with_state, aes(x = temp)) +
+p3 <- ggplot(df_with_state, aes(x = temp/10)) +
   geom_histogram(bins = 10, fill = "dodgerblue") +
   facet_wrap(~ states, scales = "free_y") +
-  labs(x = "Temperature", y = "Count", title = "Histogram of Temperature Facet by States")
+  labs(x = "Temperature (C)", y = "Count", title = "Histogram of Temperature Facet by States")
 # ggsave("plots/distribution of temp by states2.png", plot = p3 , width = 10, height = 6, units = "in", dpi = 300)
 
 ## Showing the distribution of precipitation by states
 p4 <- ggplot(df_with_state, aes(x = states, y = precip)) +
   geom_boxplot() +
-  labs(x = "States", y = "Precipitation", title = "Distribution of Precipitation by States") +
+  labs(x = "States", y = "Precipitation (mm)", title = "Distribution of Precipitation by States") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 # ggsave("plots/distribution of precip by states.png", plot = p4 , width = 10, height = 6, units = "in", dpi = 300)
 
@@ -152,21 +152,21 @@ p4 <- ggplot(df_with_state, aes(x = states, y = precip)) +
 p5 <-ggplot(df_with_state, aes(x = precip)) +
   geom_histogram(bins = 10, fill = "dodgerblue") +
   facet_wrap(~ states, scales = "free_y") +
-  labs(x = "Precipitation", y = "Count", title = "Histogram of Precipitation Facet by States")+
+  labs(x = "Precipitation (mm)", y = "Count", title = "Histogram of Precipitation Facet by States")+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 # ggsave("plots/distribution of precip by states2.png", plot = p5 , width = 10, height = 6, units = "in", dpi = 300)
 
 ## Distribution plot of Koala temp in map visualisation
 p6 <- ggplot() +
   geom_sf(data = df_states %>% dplyr::select("states","geometry"),  fill = NA) +  # Assuming Australia is an sf object
-  geom_point(data = df_with_state, aes(x = long, y = lat, color = temp), size = 1) +
+  geom_point(data = df_with_state, aes(x = long, y = lat, color = temp/10), size = 1) +
   theme_minimal() +
   coord_sf(xlim = c(bbox$xmin, bbox$xmax), 
            ylim = c(bbox$ymin, bbox$ymax)) +  # Set the extent of the map
   theme(axis.title = element_blank(),         # Remove axis titles
         axis.text = element_blank(),          # Remove axis labels
         panel.grid = element_blank()) +       # Remove grid lines 
-  labs(color = "Temperature")    +            # Changing legend title
+  labs(color = "Temperature (C)")    +            # Changing legend title
   scale_color_gradient(low = "blue", high = "red")
 # ggsave("plots/distribution Koala map.png", plot = p6 , width = 10, height = 6, units = "in", dpi = 300)
 
